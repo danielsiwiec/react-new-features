@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
-import NewFeatures from '../../lib/components/NewFeatures'
+import NewFeatures from '../../index'
 import notes from './Notes.json'
 
-const APP_NAME = 'newFeaturesExample'
+const STORAGE_KEY = 'newFeaturesExampleVersion'
 let appElement = document.getElementById('example')
 
 class App extends Component {
@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NewFeatures notes={notes} appName={APP_NAME}>
+        <NewFeatures notes={notes} storageKey={STORAGE_KEY}>
         </NewFeatures>
         <button onClick={this.resetState}>Reset state</button>
       </div>
@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   resetState() {
-    localStorage.removeItem(APP_NAME)
+    localStorage.removeItem(STORAGE_KEY)
   }
 }
 
