@@ -1,6 +1,6 @@
 {
   "name": "react-new-features-modal",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Modal for displaying new application features - only once per user",
   "main": "index.js",
   "scripts": {
