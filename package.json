@@ -1,6 +1,6 @@
 {
   "name": "react-new-features-modal",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Modal for displaying new application features - only once per user",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "keywords": [],
   "author": "Dan Siwiec <daniel.siwiec@gmail.com> (http://danoncoding.com)",
   "license": "ISC",
+  "repository": "danielsiwiec/react-new-features-modal",
   "devDependencies": {
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
