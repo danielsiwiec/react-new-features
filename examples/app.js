@@ -12,13 +12,19 @@ class App extends Component {
     return (
       <div>
         <NewFeatures notes={notes} storageKey={STORAGE_KEY} />
-        <button onClick={this.resetState}>Reset state</button>
+        <button onClick={this.resetState(0)}>Reset to version 0</button>
+        <button onClick={this.resetState(1)}>Reset to version 1</button>
+        <h2>Releases object:</h2>
+        <pre>{JSON.stringify(notes, null, 2)}</pre>
       </div>
     )
   }
 
-  resetState() {
-    localStorage.removeItem(STORAGE_KEY)
+  resetState(version) {
+    return () => {
+      localStorage.setItem(STORAGE_KEY, version)
+      location.reload()
+    }
   }
 }
 
