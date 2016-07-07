@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NewFeatures notes={notes} storageKey={STORAGE_KEY} />
+        <NewFeatures notes={notes} storageKey={STORAGE_KEY} limit="1" />
         <button onClick={this.resetState(0)}>Reset to version 0</button>
         <button onClick={this.resetState(1)}>Reset to version 1</button>
         <h2>Releases object:</h2>
