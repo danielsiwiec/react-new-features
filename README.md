@@ -37,11 +37,8 @@ render() {
         "features": [{
             "title": "Bar",
             "description": "Now you can do foo with this new bar"
-        }]
-    },
-    {
-        "version": 3,
-        "features": [{
+        },
+        {
             "title": "Baz",
             "description": "Baz has been just added for your convenience"
         }]
