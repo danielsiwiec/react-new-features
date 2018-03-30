@@ -16,7 +16,7 @@ import NewFeatures from 'react-new-features-modal'
 
 ...
 render() {
-  return <NewFeatures notes={notes} storageKey="helloAppVersion" limit="2"/>
+  return <NewFeatures notes={notes} limit="2"/>
 }
 ```
 
@@ -45,8 +45,6 @@ render() {
     }]
 }
 ```
-
-**storageKey** - the key used to save the last seen version number in users' localStorage
 
 **limit** *(optional)* - maximum number of last versions to display. Otherwise no limit.
 
