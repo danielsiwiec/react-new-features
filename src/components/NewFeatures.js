@@ -4,17 +4,15 @@ import ReactModal from 'react-modal'
 const styles = {
   title: {
     margin: 0,
-    textAlign: 'center',
-    fontSize: '2.4em'
+    textAlign: 'center'
   },
   button: {
     display: 'block',
     margin: '0 auto',
     background: 'blue',
     border: 'none',
-    padding: '0.6em 1.2em',
+    padding: '0.6rem 1.2rem',
     color: '#fff',
-    fontSize: '0.8em',
     letterSpacing: '1px',
     textTransform: 'uppercase',
     borderRadius: '2px'
@@ -23,9 +21,9 @@ const styles = {
     content : {
       position: 'absolute',
       top: '30%',
-      left: '30%',
-      right: '30%',
-      bottom: '30%'
+      left: '20%',
+      right: '20%',
+      bottom: 'auto'
     }
   }
 }
@@ -58,35 +56,34 @@ export default class NewFeatures extends Component {
   }
 
   closeModal() {
+    updateUserVersion(this.props.notes)
     this.setState({showModal: false})
-    updateUserVersion(currentVersion(this.props.notes))
   }
 
   componentDidMount() {
-    let features = getNewFeatures(this.props.notes.releases, getUsersVersion(), this.props.limit)
-    this.setState({features})
-    let show = getUsersVersion() < currentVersion(this.props.notes)
-    this.setState({showModal: show})
+    let features = getNewFeatures(this.props.notes.releases, this.props.limit)
+    let showModal = areThereUpdates(this.props.notes)
+    this.setState({showModal, features})
   }
 }
 
-const getNewFeatures = (releases, version, limit) => {
+const areThereUpdates = notes => userVersion() < notesVersion(notes)
+
+const getNewFeatures = (releases, limit) => {
+  const isNewer = release => release.version > userVersion()
+  const byVersion = (one, two) => one.version - two.version
   return releases
-    .filter((release) => {return release.version > version})
-    .sort((one, two) => {return one.version - two.version})
+    .filter(isNewer)
+    .sort(byVersion)
     .slice(-1*limit)
-    .reduce((acc, release) => {return acc.concat(release.features)}, [])
+    .reduce((acc, release) => acc.concat(release.features), [])
 }
 
-const updateUserVersion = version => {
+const updateUserVersion = notes => {
+  let version = notesVersion(notes)
   localStorage.setItem(storageKey, version)
 }
 
-const currentVersion = notes => {
-  return notes.releases
-    .reduce((acc, release) => {return acc > release.version ? acc : release.version}, 0)
-}
+const notesVersion = notes => Math.max(...notes.releases.map(release => release.version))
 
-const getUsersVersion = () => {
-  return localStorage.getItem(storageKey) || 0
-}
+const userVersion = () => localStorage.getItem(storageKey) || 0
