@@ -1,35 +1,35 @@
-var fs = require('fs');
-var path = require('path');
-var webpack = require('webpack');
-
+let path = require('path');
 module.exports = {
-
-  entry: './examples/app.js',
-
+  entry: './src/index.js',
   output: {
-    filename: 'bundle.js',
-    path: 'examples/__build__',
-    publicPath: '/__build__/'
+    path: path.resolve(__dirname, 'build'),
+    filename: 'index.js',
+    libraryTarget: 'commonjs2'
   },
-
   module: {
-    loaders: [
-      { test: /\.js$/,
-        loader: 'babel'
+    rules: [
+      {
+        test: /\.js$/,
+        include: path.resolve(__dirname, 'src'),
+        exclude: /(node_modules|bower_components|build)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['env']
+          }
+        }
       },
       {
         test: /\.css$/,
-        loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
-      },
-      {
-        test: /.json$/,
-        loader: 'json'
+        include: path.resolve(__dirname, 'src'),
+        exclude: /(node_modules|bower_components|build)/,
+        use: {
+          loader: 'css-loader'
+        }
       }
     ]
   },
-
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin('shared.js')
-  ]
-
+  externals: {
+    'react': 'commonjs react'
+  }
 };

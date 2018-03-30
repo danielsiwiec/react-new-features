@@ -2,37 +2,41 @@
   "name": "react-new-features-modal",
   "version": "2.1.4",
   "description": "Modal for displaying new application features - only once per user",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline --host 0.0.0.0 --content-base examples/"
+    "start": "webpack --watch",
+    "build": "webpack"
   },
   "keywords": [],
-  "author": "Dan Siwiec <daniel.siwiec@gmail.com> (http://danoncoding.com)",
+  "author": {
+    "name": "Dan Siwiec",
+    "email": "daniel.siwiec@gmail.com"
+  },
   "license": "ISC",
   "repository": "danielsiwiec/react-new-features-modal",
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "webpack": "^2.6.1",
+    "classnames": "^2.2.5",
+    "react-modal": "^3.3.2"
+  },
   "devDependencies": {
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.11.1",
-    "css-loader": "^0.23.1",
-    "json-loader": "^0.5.4",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.5.1",
+    "css-loader": "^0.28.11"
   },
   "peerDependencies": {
-    "react": "^15.1.0"
+    "react": "^16.0.0"
   },
   "babel": {
     "presets": [
       "es2015",
       "react"
     ]
-  },
-  "dependencies": {
-    "classnames": "^2.2.5",
-    "react-modal": "^1.3.0"
   }
 }
