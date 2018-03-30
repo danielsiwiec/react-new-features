@@ -1,6 +1,6 @@
 # react-new-features-modal
 
-Show a modal to communicate new added features. The last shown version is stored in localStorage, so each user sees the message only once.
+Show a modal to communicate new added features. The last shown version is stored in localStorage, so each user sees the new feature announcement only once.
 
 ![screen](docs/screen.png)
 
@@ -10,7 +10,7 @@ Play with the [demo](https://codesandbox.io/s/zw0y7l2k7x)
 
 ### Only new features
 
-Only the features the user hasn't seen yet will be displayed in the pop-up. E.g. if the user has seen version 4 of your application before and the current version is 6, only a features for versions 5 and 6 will be displayed in the New Features modal.
+Only features the user hasn't seen yet will be displayed in the pop-up. E.g. if the user has seen version 4 of your application before and current version is 6, only features for versions 5 and 6 will be displayed in the modal.
 
 
 ## Usage

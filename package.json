@@ -1,13 +1,13 @@
 {
   "name": "react-new-features-modal",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Modal for displaying new application features - only once per user",
+  "keywords": ["react", "modal", "features", "new", "guide"],
   "main": "build/index.js",
   "scripts": {
     "start": "webpack --watch",
     "build": "webpack"
   },
-  "keywords": [],
   "author": {
     "name": "Dan Siwiec",
     "email": "daniel.siwiec@gmail.com"
