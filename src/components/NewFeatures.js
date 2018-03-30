@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Modal from './Modal'
+import ReactModal from 'react-modal'
 
 const styles = {
   title: {
@@ -18,6 +18,15 @@ const styles = {
     letterSpacing: '1px',
     textTransform: 'uppercase',
     borderRadius: '2px'
+  },
+  modal: {
+    content : {
+      position: 'absolute',
+      top: '30%',
+      left: '30%',
+      right: '30%',
+      bottom: '30%'
+    }
   }
 }
 
@@ -25,12 +34,13 @@ export default class NewFeatures extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {showModal: false, features: []}
+    this.state = {showModal: false, features: [], transform: true}
+    this.closeModal = this.closeModal.bind(this)
   }
 
   render() {
     return (
-      <Modal show={this.state.showModal}>
+      <ReactModal isOpen={this.state.showModal} style={styles.modal} >
         <h3 style={styles.title}>New features!</h3>
         <div>
           <p style={styles.subtitle}>We implemented some new features for you:</p>
@@ -39,43 +49,42 @@ export default class NewFeatures extends Component {
               return <li key={index}><strong>{feature.title}</strong> {feature.description}</li>
             })}
           </ul>
-          <button style={styles.button} onClick={this.closeModal.bind(this)}>Got it!</button>
+          <button style={styles.button} onClick={this.closeModal}>Got it!</button>
         </div>
-      </Modal>
+      </ReactModal>
     )
   }
 
   closeModal() {
     this.setState({showModal: false})
-    this.updateUserVersion()
-  }
-
-  getUsersVersion(){
-    return localStorage.getItem(this.props.storageKey) || 0
-  }
-
-  updateUserVersion(){
-    localStorage.setItem(this.props.storageKey, this.currentVersion())
-  }
-
-  currentVersion() {
-    return this.props.notes.releases
-      .reduce((acc, release) => {return acc > release.version ? acc : release.version}, 0)
+    updateUserVersion(this.props.storageKey, currentVersion(this.props.notes))
   }
 
   componentDidMount() {
-    let features = this.getNewFeatures(this.getUsersVersion(), this.props.limit)
+    let features = getNewFeatures(this.props.notes.releases, getUsersVersion(this.props.storageKey), this.props.limit)
     this.setState({features})
-    let show = this.getUsersVersion() < this.currentVersion()
-    setTimeout(()=> {this.setState({showModal: show})}, 1000)
+    let show = getUsersVersion(this.props.storageKey) < currentVersion(this.props.notes)
+    this.setState({showModal: show})
   }
+}
 
-  getNewFeatures(version, limit) {
-    return this.props.notes.releases
-      .filter((release) => {return release.version > version})
-      .sort((one, two) => {return one.version - two.version})
-      .slice(-1*limit)
-      .reduce((acc, release) => {return acc.concat(release.features)}, [])
-  }
+const getNewFeatures = (releases, version, limit) => {
+  return releases
+    .filter((release) => {return release.version > version})
+    .sort((one, two) => {return one.version - two.version})
+    .slice(-1*limit)
+    .reduce((acc, release) => {return acc.concat(release.features)}, [])
+}
 
+const updateUserVersion = (storageKey, version) => {
+  localStorage.setItem(storageKey, version)
+}
+
+const currentVersion = notes => {
+  return notes.releases
+    .reduce((acc, release) => {return acc > release.version ? acc : release.version}, 0)
+}
+
+const getUsersVersion = storageKey => {
+  return localStorage.getItem(storageKey) || 0
 }
