@@ -1,10 +1,16 @@
 import React, {Component} from 'react'
-import classNames from 'classnames/bind'
-
 import ReactModal from 'react-modal'
-import styles from '../styles/modal.css'
 
-let cx = classNames.bind(styles)
+const styles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+}
 
 export default class TourModal extends Component {
 
@@ -14,13 +20,10 @@ export default class TourModal extends Component {
   }
 
   render() {
-    let className = cx({
-      modal: true,
-      show : this.state.transform
-    })
-
     return (
-      <ReactModal isOpen={this.props.show} className={className} overlayClassName={styles.overlay} onAfterOpen={this.transform.bind(this)}>
+      <ReactModal isOpen={this.props.show}
+                  style={styles}
+                  onAfterOpen={this.transform.bind(this)}>
         {this.props.children}
       </ReactModal>
     )

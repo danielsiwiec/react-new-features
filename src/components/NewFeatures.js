@@ -1,27 +1,45 @@
 import React, {Component} from 'react'
-
 import Modal from './Modal'
-import styles from '../styles/new-features.css'
+
+const styles = {
+  title: {
+    margin: 0,
+    textAlign: 'center',
+    fontSize: '2.4em'
+  },
+  button: {
+    display: 'block',
+    margin: '0 auto',
+    background: 'blue',
+    border: 'none',
+    padding: '0.6em 1.2em',
+    color: '#fff',
+    fontSize: '0.8em',
+    letterSpacing: '1px',
+    textTransform: 'uppercase',
+    borderRadius: '2px'
+  }
+}
 
 export default class NewFeatures extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {showModal: false}
+    this.state = {showModal: false, features: []}
   }
 
   render() {
     return (
       <Modal show={this.state.showModal}>
-        <h3 className={styles.title}>New features!</h3>
-        <div className={styles.body}>
-          <p className={styles.subtitle}>We implemented some new features for you:</p>
-          <ul className={styles.list}>
-            {this.getNewFeatures(this.getUsersVersion(), this.props.limit).map((feature, index) => {
-              return <li key={index} className={styles.item}><strong>{feature.title}</strong> {feature.description}</li>
+        <h3 style={styles.title}>New features!</h3>
+        <div>
+          <p style={styles.subtitle}>We implemented some new features for you:</p>
+          <ul>
+            {this.state.features.map((feature, index) => {
+              return <li key={index}><strong>{feature.title}</strong> {feature.description}</li>
             })}
           </ul>
-          <button className={styles.button} onClick={this.closeModal.bind(this)}>Got it!</button>
+          <button style={styles.button} onClick={this.closeModal.bind(this)}>Got it!</button>
         </div>
       </Modal>
     )
@@ -46,6 +64,8 @@ export default class NewFeatures extends Component {
   }
 
   componentDidMount() {
+    let features = this.getNewFeatures(this.getUsersVersion(), this.props.limit)
+    this.setState({features})
     let show = this.getUsersVersion() < this.currentVersion()
     setTimeout(()=> {this.setState({showModal: show})}, 1000)
   }
