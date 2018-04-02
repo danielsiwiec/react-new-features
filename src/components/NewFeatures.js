@@ -22,8 +22,9 @@ const styles = {
       top: '30%',
       left: '20%',
       right: '20%',
-      overlfow: 'scroll',
-      height: '40vh'
+      bottom: 'auto',
+      overflowY: 'auto',
+      maxHeight: '40vh'
     }
   }
 }
