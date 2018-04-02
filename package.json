@@ -1,6 +1,6 @@
 {
   "name": "react-new-features-modal",
-  "version": "3.0.3",
+  "version": "3.1.3",
   "description": "Modal for displaying new application features - only once per user",
   "keywords": ["react", "modal", "features", "new", "guide"],
   "main": "build/index.js",

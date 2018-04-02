@@ -19,11 +19,11 @@ const styles = {
   },
   modal: {
     content : {
-      position: 'absolute',
       top: '30%',
       left: '20%',
       right: '20%',
-      bottom: 'auto'
+      overlfow: 'scroll',
+      height: '40vh'
     }
   }
 }
